@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2d6e51c7a07a4d5fbf3ae58a6184e038" Name="Diagram1">
+        <EntityTypeShape EntityType="hair_salonModel.admin" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hair_salonModel.client" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="hair_salonModel.master" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="hair_salonModel.record" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="hair_salonModel.service" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
+        <AssociationConnector Association="hair_salonModel.FK_record_admin" ManuallyRouted="false" />
+        <AssociationConnector Association="hair_salonModel.FK_record_client" ManuallyRouted="false" />
+        <AssociationConnector Association="hair_salonModel.FK_record_master" ManuallyRouted="false" />
+        <AssociationConnector Association="hair_salonModel.FK_record_service" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

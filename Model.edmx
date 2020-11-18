@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище hair_salonModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="admin">
+          <Key>
+            <PropertyRef Name="ID_admin" />
+          </Key>
+          <Property Name="ID_admin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="patronymic" Type="nvarchar" MaxLength="50" />
+          <Property Name="passport" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="ID_client" />
+          </Key>
+          <Property Name="ID_client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="surname" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="master">
+          <Key>
+            <PropertyRef Name="ID_master" />
+          </Key>
+          <Property Name="ID_master" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="patronymic" Type="nvarchar" MaxLength="50" />
+          <Property Name="passport" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="record">
+          <Key>
+            <PropertyRef Name="ID_record" />
+            <PropertyRef Name="ID_client" />
+            <PropertyRef Name="ID_master" />
+            <PropertyRef Name="ID_service" />
+            <PropertyRef Name="ID_admin" />
+          </Key>
+          <Property Name="ID_record" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_client" Type="int" Nullable="false" />
+          <Property Name="ID_master" Type="int" Nullable="false" />
+          <Property Name="ID_service" Type="int" Nullable="false" />
+          <Property Name="ID_admin" Type="int" Nullable="false" />
+          <Property Name="datetime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="service">
+          <Key>
+            <PropertyRef Name="ID_service" />
+          </Key>
+          <Property Name="ID_service" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_service" Type="nvarchar" MaxLength="50" />
+          <Property Name="price" Type="money" />
+        </EntityType>
+        <Association Name="FK_record_admin">
+          <End Role="admin" Type="Self.admin" Multiplicity="1" />
+          <End Role="record" Type="Self.record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admin">
+              <PropertyRef Name="ID_admin" />
+            </Principal>
+            <Dependent Role="record">
+              <PropertyRef Name="ID_admin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_record_client">
+          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="record" Type="Self.record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="ID_client" />
+            </Principal>
+            <Dependent Role="record">
+              <PropertyRef Name="ID_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_record_master">
+          <End Role="master" Type="Self.master" Multiplicity="1" />
+          <End Role="record" Type="Self.record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="master">
+              <PropertyRef Name="ID_master" />
+            </Principal>
+            <Dependent Role="record">
+              <PropertyRef Name="ID_master" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_record_service">
+          <End Role="service" Type="Self.service" Multiplicity="1" />
+          <End Role="record" Type="Self.record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="ID_service" />
+            </Principal>
+            <Dependent Role="record">
+              <PropertyRef Name="ID_service" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище hair_salonModelContainer">
+          <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="master" EntityType="Self.master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="record" EntityType="Self.record" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="service" EntityType="Self.service" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_record_admin" Association="Self.FK_record_admin">
+            <End Role="admin" EntitySet="admin" />
+            <End Role="record" EntitySet="record" />
+          </AssociationSet>
+          <AssociationSet Name="FK_record_client" Association="Self.FK_record_client">
+            <End Role="client" EntitySet="client" />
+            <End Role="record" EntitySet="record" />
+          </AssociationSet>
+          <AssociationSet Name="FK_record_master" Association="Self.FK_record_master">
+            <End Role="master" EntitySet="master" />
+            <End Role="record" EntitySet="record" />
+          </AssociationSet>
+          <AssociationSet Name="FK_record_service" Association="Self.FK_record_service">
+            <End Role="service" EntitySet="service" />
+            <End Role="record" EntitySet="record" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="hair_salonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="admin">
+          <Key>
+            <PropertyRef Name="ID_admin" />
+          </Key>
+          <Property Name="ID_admin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="passport" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="record" Relationship="Self.FK_record_admin" FromRole="admin" ToRole="record" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="ID_client" />
+          </Key>
+          <Property Name="ID_client" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="record" Relationship="Self.FK_record_client" FromRole="client" ToRole="record" />
+        </EntityType>
+        <EntityType Name="master">
+          <Key>
+            <PropertyRef Name="ID_master" />
+          </Key>
+          <Property Name="ID_master" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="passport" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="record" Relationship="Self.FK_record_master" FromRole="master" ToRole="record" />
+        </EntityType>
+        <EntityType Name="record">
+          <Key>
+            <PropertyRef Name="ID_record" />
+            <PropertyRef Name="ID_client" />
+            <PropertyRef Name="ID_master" />
+            <PropertyRef Name="ID_service" />
+            <PropertyRef Name="ID_admin" />
+          </Key>
+          <Property Name="ID_record" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_client" Type="Int32" Nullable="false" />
+          <Property Name="ID_master" Type="Int32" Nullable="false" />
+          <Property Name="ID_service" Type="Int32" Nullable="false" />
+          <Property Name="ID_admin" Type="Int32" Nullable="false" />
+          <Property Name="datetime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="admin" Relationship="Self.FK_record_admin" FromRole="record" ToRole="admin" />
+          <NavigationProperty Name="client" Relationship="Self.FK_record_client" FromRole="record" ToRole="client" />
+          <NavigationProperty Name="master" Relationship="Self.FK_record_master" FromRole="record" ToRole="master" />
+          <NavigationProperty Name="service" Relationship="Self.FK_record_service" FromRole="record" ToRole="service" />
+        </EntityType>
+        <EntityType Name="service">
+          <Key>
+            <PropertyRef Name="ID_service" />
+          </Key>
+          <Property Name="ID_service" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_service" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="record" Relationship="Self.FK_record_service" FromRole="service" ToRole="record" />
+        </EntityType>
+        <Association Name="FK_record_admin">
+          <End Role="admin" Type="Self.admin" Multiplicity="1" />
+          <End Role="record" Type="Self.record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admin">
+              <PropertyRef Name="ID_admin" />
+            </Principal>
+            <Dependent Role="record">
+              <PropertyRef Name="ID_admin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_record_client">
+          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="record" Type="Self.record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="ID_client" />
+            </Principal>
+            <Dependent Role="record">
+              <PropertyRef Name="ID_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_record_master">
+          <End Role="master" Type="Self.master" Multiplicity="1" />
+          <End Role="record" Type="Self.record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="master">
+              <PropertyRef Name="ID_master" />
+            </Principal>
+            <Dependent Role="record">
+              <PropertyRef Name="ID_master" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_record_service">
+          <End Role="service" Type="Self.service" Multiplicity="1" />
+          <End Role="record" Type="Self.record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="ID_service" />
+            </Principal>
+            <Dependent Role="record">
+              <PropertyRef Name="ID_service" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="hair_salonEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="admin" EntityType="Self.admin" />
+          <EntitySet Name="client" EntityType="Self.client" />
+          <EntitySet Name="master" EntityType="Self.master" />
+          <EntitySet Name="record" EntityType="Self.record" />
+          <EntitySet Name="service" EntityType="Self.service" />
+          <AssociationSet Name="FK_record_admin" Association="Self.FK_record_admin">
+            <End Role="admin" EntitySet="admin" />
+            <End Role="record" EntitySet="record" />
+          </AssociationSet>
+          <AssociationSet Name="FK_record_client" Association="Self.FK_record_client">
+            <End Role="client" EntitySet="client" />
+            <End Role="record" EntitySet="record" />
+          </AssociationSet>
+          <AssociationSet Name="FK_record_master" Association="Self.FK_record_master">
+            <End Role="master" EntitySet="master" />
+            <End Role="record" EntitySet="record" />
+          </AssociationSet>
+          <AssociationSet Name="FK_record_service" Association="Self.FK_record_service">
+            <End Role="service" EntitySet="service" />
+            <End Role="record" EntitySet="record" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище hair_salonModelContainer" CdmEntityContainer="hair_salonEntities">
+          <EntitySetMapping Name="admin">
+            <EntityTypeMapping TypeName="hair_salonModel.admin">
+              <MappingFragment StoreEntitySet="admin">
+                <ScalarProperty Name="ID_admin" ColumnName="ID_admin" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="patronymic" ColumnName="patronymic" />
+                <ScalarProperty Name="passport" ColumnName="passport" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="client">
+            <EntityTypeMapping TypeName="hair_salonModel.client">
+              <MappingFragment StoreEntitySet="client">
+                <ScalarProperty Name="ID_client" ColumnName="ID_client" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="master">
+            <EntityTypeMapping TypeName="hair_salonModel.master">
+              <MappingFragment StoreEntitySet="master">
+                <ScalarProperty Name="ID_master" ColumnName="ID_master" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="patronymic" ColumnName="patronymic" />
+                <ScalarProperty Name="passport" ColumnName="passport" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="record">
+            <EntityTypeMapping TypeName="hair_salonModel.record">
+              <MappingFragment StoreEntitySet="record">
+                <ScalarProperty Name="ID_record" ColumnName="ID_record" />
+                <ScalarProperty Name="ID_client" ColumnName="ID_client" />
+                <ScalarProperty Name="ID_master" ColumnName="ID_master" />
+                <ScalarProperty Name="ID_service" ColumnName="ID_service" />
+                <ScalarProperty Name="ID_admin" ColumnName="ID_admin" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="service">
+            <EntityTypeMapping TypeName="hair_salonModel.service">
+              <MappingFragment StoreEntitySet="service">
+                <ScalarProperty Name="ID_service" ColumnName="ID_service" />
+                <ScalarProperty Name="name_service" ColumnName="name_service" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
